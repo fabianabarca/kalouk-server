@@ -1,0 +1,24 @@
+<h1>¿Conectado?</h1>
+
+<p id="onopen"></p>
+
+<p id="onmessage">Esperando mensaje...</p>
+<script>
+  const screenSocket = new WebSocket("ws://127.0.0.1:8000/ws/test/");
+
+  // Registrar la conexión abierta
+  screenSocket.onopen = function (event) {
+    console.log("Conexión abierta exitosamente.");
+    document.getElementById("onopen").innerText =
+      "Conexión abierta exitosamente.";
+  };
+
+  // Registrar mensajes recibidos
+  screenSocket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    console.log("Mensaje recibido:", data);
+    if (data.message) {
+      document.getElementById("onmessage").innerText = data.message;
+    }
+  };
+</script>

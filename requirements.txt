@@ -1,0 +1,10 @@
+django
+channels
+daphne
+redis
+channels-redis
+numpy
+pandas
+django_rest_framework
+python-decouple
+gunicorn
