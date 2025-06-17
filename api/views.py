@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -11,8 +11,8 @@ from datetime import datetime, time
 # Create your views here.
 
 
-class DataView(APIView):
-    def get(self, request):
+class DataViewSet(viewsets.ViewSet):
+    def list(self, request):
         # Verificar parámetros
         if request.query_params.get("grupo"):
             try:
@@ -125,8 +125,8 @@ class DataView(APIView):
             )
 
 
-class ProcessView(APIView):
-    def get(self, request):
+class ProcessView(viewsets.ViewSet):
+    def list(self, request):
         # Verificar parámetros
         if request.query_params.get("grupo"):
             try:

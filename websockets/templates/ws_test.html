@@ -21,4 +21,10 @@
       document.getElementById("onmessage").innerText = data.message;
     }
   };
+
+  screenSocket.onclose = function (event) {
+    console.log("Conexión cerrada:", event);
+    document.getElementById("onopen").innerText = "Conexión cerrada.";
+    document.getElementById("onmessage").innerText = "";
+  };
 </script>
