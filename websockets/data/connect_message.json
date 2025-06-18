@@ -1,0 +1,9 @@
+{
+  "id": "group_hash_id",
+  "states": {
+    "channelKey1": { "page": 1, "clicks": 0 },
+    "channelKey2": { "drawings": [] }
+  },
+  "type": "connect",
+  "uid": "unique_device_id"
+}

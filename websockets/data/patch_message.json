@@ -1,0 +1,8 @@
+{
+  "id": "group_hash_id",
+  "states": {
+    "channelKey": { "page": 2, "clicks": 1 }
+  },
+  "type": "patch",
+  "uid": "unique_device_id"
+}
