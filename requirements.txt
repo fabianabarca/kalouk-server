@@ -6,5 +6,6 @@ channels-redis
 numpy
 pandas
 django_rest_framework
+drf-spectacular
 python-decouple
 gunicorn

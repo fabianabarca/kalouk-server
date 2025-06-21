@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "daphne",
     "channels",
     "rest_framework",
+    "drf_spectacular",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -92,6 +93,21 @@ DATABASES = {
 
 REDIS_HOST = config("REDIS_HOST")
 REDIS_PORT = config("REDIS_PORT")
+
+# REST Framework settings
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# Spectacular settings
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Kalouk API",
+    "DESCRIPTION": "Datos sintéticos para el análisis de datos.",
+    "VERSION": "0.2.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 
 # Channels settings
 
