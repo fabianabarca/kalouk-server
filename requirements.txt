@@ -5,6 +5,7 @@ redis
 channels-redis
 numpy
 pandas
+scipy
 django_rest_framework
 drf-spectacular
 python-decouple
