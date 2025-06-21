@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import FileResponse
+from django.conf import settings
 
 import random
 import numpy as np
@@ -125,7 +127,7 @@ class DataViewSet(viewsets.ViewSet):
             )
 
 
-class ProcessView(viewsets.ViewSet):
+class ProcessViewSet(viewsets.ViewSet):
     def list(self, request):
         # Verificar parámetros
         if request.query_params.get("grupo"):
@@ -230,3 +232,10 @@ def time_variation(timestamp, group):
     print(f"Valor del parámetro para el grupo {group}: {param}")
 
     return param, sunlight
+
+
+def get_schema(request):
+    file_path = settings.BASE_DIR / "api" / "kalouk.yml"
+    return FileResponse(
+        open(file_path, "rb"), as_attachment=True, filename="kalouk.yml"
+    )

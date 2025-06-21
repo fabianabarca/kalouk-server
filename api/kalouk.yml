@@ -1,0 +1,145 @@
+openapi: '3.0.2'
+info:
+  title: Kalouk API
+  description: Un servidor de datos sintéticos para el estudio de variables aleatorias y procesos aleatorios.
+  version: '0.2'
+  contact:
+    email: fabian.abarca@ucr.ac.cr
+  x-logo:
+    url: https://fabianabarca.github.io/kalouk/K.png
+    altText: Logo Kalouk
+  license:
+    name: MIT
+    url: 'https://opensource.org/license/mit/'
+servers:
+  - url: https://kalouk.xyz/api
+
+paths:
+  /datos:
+    get:
+      summary: Variables aleatorias
+      description: Información sobre los proveedores de datos GTFS del servicio de transporte público.
+      parameters:
+        - in: query
+          name: grupo
+          schema:
+            type: string
+          description: 'Grupo de trabajo del proyecto.'
+      tags:
+        - Parte-1
+      responses:
+        '200':
+          description: Solicitud procesada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parte-1'
+        '400':
+          description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'El número del grupo debe ser un número entero.'
+  /proceso:
+    get:
+      summary: Proceso aleatorio
+      description: Datos para análisis.
+      parameters:
+        - in: query
+          name: grupo
+          schema:
+            type: string
+          description: 'Grupo de trabajo del proyecto.'
+      tags:
+        - Parte-2
+      responses:
+        '200':
+          description: Solicitud procesada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parte-2'
+        '400':
+          description: Error en la solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'El número del grupo debe ser un número entero.'
+
+components:
+  schemas:
+    Parte-1:
+      type: object
+      properties:
+        group:
+          description: Número del grupo
+          type: number
+          example: 12
+        timestamp:
+          description: Marca de tiempo de la solicitud
+          type: string
+          example: '2024-03-10T10:53:00Z'
+        sample_size:
+          description: Tamaño de la muestra
+          type: number
+          example: 5
+        variable_1:
+          type: array
+          items:
+            type: number
+          description: Valores de la variable 1
+          example: [1.2, 2.3, 3.4, 4.5, 5.6]
+        variable_2:
+          type: array
+          items:
+            type: number
+          description: Valores de la variable 2
+          example: [2.1, 3.2, 4.3, 5.4, 6.5]
+        variable_3:
+          type: array
+          items:
+            type: number
+          description: Valores de la variable 3
+          example: [3.0, 4.1, 5.2, 6.3, 7.4]
+    Parte-2:
+      type: object
+      properties:
+        group:
+          description: Número del grupo
+          type: number
+          example: 12
+        timestamp:
+          description: Marca de tiempo de la solicitud
+          type: string
+          example: '2024-03-10T10:53:00Z'
+        sample_size:
+          description: Tamaño de la muestra
+          type: number
+          example: 5
+        sunlight:
+          type: boolean
+          description: Indica si hay luz solar
+          example: true
+        data:
+          type: array
+          items:
+            type: number
+          description: Valores de la medición del proceso aleatorio
+          example: [1.2, 2.3, 3.4, 4.5, 5.6]
+
+tags:
+  - name: Parte-1
+    x-displayName: Parte 1
+    description: Datos para estudio de variables aleatorias ordinarias y conjuntas.
+  - name: Parte-2
+    x-displayName: Parte 2
+    description: Datos para estudio de procesos aleatorios.
+
