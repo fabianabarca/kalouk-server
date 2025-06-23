@@ -5,7 +5,7 @@
 <p class="lead" id="onmessage">Esperando mensaje...</p>
 
 <script>
-  const eventSource = new EventSource("http://127.0.0.1:8000/sse/");
+  const eventSource = new EventSource("https://web.kalouk.xyz/sse/");
 
   eventSource.onopen = function (event) {
     console.log("Conexión SSE abierta exitosamente.");
