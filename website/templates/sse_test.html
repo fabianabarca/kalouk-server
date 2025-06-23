@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load static %} {% block main %}
+
+<h2>Prueba SSE</h2>
+<p id="onopen"></p>
+<p class="lead" id="onmessage">Esperando mensaje...</p>
+
+<script>
+  const eventSource = new EventSource("http://127.0.0.1:8000/sse/");
+
+  eventSource.onopen = function (event) {
+    console.log("Conexión SSE abierta exitosamente.");
+    document.getElementById("onopen").innerText =
+      "Conexión SSE abierta exitosamente.";
+  };
+
+  eventSource.onmessage = function (event) {
+    console.log("Mensaje SSE recibido:", event.data);
+    document.getElementById("onmessage").innerText = event.data;
+  };
+
+  eventSource.onerror = function (event) {
+    console.log("Error en la conexión SSE:", event);
+    document.getElementById("onopen").innerText = "Error en la conexión SSE.";
+    document.getElementById("onmessage").innerText = "";
+  };
+</script>
+
+{% endblock %}
