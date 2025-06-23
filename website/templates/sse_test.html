@@ -5,24 +5,44 @@
 <p class="lead" id="onmessage">Esperando mensaje...</p>
 
 <script>
+  console.log("Intentando conectar a SSE en https://web.kalouk.xyz/sse/...");
   const eventSource = new EventSource("https://web.kalouk.xyz/sse/");
 
   eventSource.onopen = function (event) {
-    console.log("Conexión SSE abierta exitosamente.");
+    console.log("SSE conexión abierta:", event);
     document.getElementById("onopen").innerText =
       "Conexión SSE abierta exitosamente.";
   };
 
   eventSource.onmessage = function (event) {
-    console.log("Mensaje SSE recibido:", event.data);
-    document.getElementById("onmessage").innerText = event.data;
+    console.log("Mensaje SSE recibido:", event);
+    try {
+      const parsed = JSON.parse(event.data);
+      console.log("Mensaje SSE (parseado):", parsed);
+      document.getElementById("onmessage").innerText = event.data;
+    } catch (e) {
+      console.warn("No se pudo parsear el mensaje SSE como JSON:", event.data);
+      document.getElementById("onmessage").innerText = event.data;
+    }
   };
 
   eventSource.onerror = function (event) {
-    console.log("Error en la conexión SSE:", event);
+    console.error("Error en la conexión SSE:", event);
+    if (event.target && event.target.readyState === EventSource.CLOSED) {
+      console.error("La conexión SSE se ha cerrado.");
+    }
     document.getElementById("onopen").innerText = "Error en la conexión SSE.";
     document.getElementById("onmessage").innerText = "";
   };
+
+  eventSource.addEventListener("state", function (event) {
+    console.log("Evento personalizado 'state' recibido:", event);
+  });
+
+  window.addEventListener("beforeunload", function () {
+    console.log("Cerrando conexión SSE...");
+    eventSource.close();
+  });
 </script>
 
 {% endblock %}
