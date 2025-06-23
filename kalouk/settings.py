@@ -34,8 +34,9 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1", cast=Csv())
 
 INSTALLED_APPS = [
     "api",
-    "website",
     "ws",
+    "sse",
+    "website",
     "daphne",
     "channels",
     "rest_framework",

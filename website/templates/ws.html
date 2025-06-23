@@ -1,8 +1,9 @@
-<h1>¿Conectado?</h1>
+{% extends "base.html" %} {% load static %} {% block main %}
 
+<h2>Prueba</h2>
 <p id="onopen"></p>
-
 <p id="onmessage">Esperando mensaje...</p>
+
 <script>
   const screenSocket = new WebSocket("ws://127.0.0.1:8000/ws/test/");
 
@@ -28,3 +29,5 @@
     document.getElementById("onmessage").innerText = "";
   };
 </script>
+
+{% endblock %}

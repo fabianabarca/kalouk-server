@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("website.urls")),
     path("api/", include("api.urls")),
-    path("websockets/", include("ws.urls")),
+    path("ws/", include("ws.urls")),
+    path("sse/", include("sse.urls")),
 ]
