@@ -6,7 +6,12 @@ import json
 
 class StateSSEConsumer(AsyncHttpConsumer):
     async def handle(self, body):
-        await self.send_headers(headers=[(b"Content-Type", b"text/event-stream")])
+        await self.send_headers(
+            headers=[
+                (b"Content-Type", b"text/event-stream"),
+                (b"Access-Control-Allow-Origin", b"https://web.kalouk.xyz"),
+            ]
+        )
 
         redis = await redis_aio.from_url("redis://localhost")
         pubsub = redis.pubsub()
