@@ -1,6 +1,7 @@
 from channels.generic.http import AsyncHttpConsumer
 import asyncio
 import redis.asyncio as redis_aio
+import json
 
 
 class StateSSEConsumer(AsyncHttpConsumer):
@@ -18,7 +19,8 @@ class StateSSEConsumer(AsyncHttpConsumer):
                 )
                 if message and message["type"] == "message":
                     data = message["data"].decode()
-                    payload = f"data: {data}\n\n"
+                    json_payload = json.dumps({"state": data})
+                    payload = f"data: {json_payload}\n\n"
                     await self.send_body(payload.encode(), more_body=True)
                 else:
                     await self.send_body(b": heartbeat\n\n", more_body=True)

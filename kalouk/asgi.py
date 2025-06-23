@@ -23,6 +23,7 @@ application = ProtocolTypeRouter(
         "http": URLRouter(
             [
                 path("sse/", StateSSEConsumer.as_asgi()),
+                path("sse", StateSSEConsumer.as_asgi()),
                 re_path(r"", get_asgi_application()),
             ]
         ),
