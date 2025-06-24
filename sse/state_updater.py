@@ -17,8 +17,8 @@ async def state_updater():
 
 
 def update_state(state):
-    lam = 15.001 / 60
-    nu = 15.002 / 60
+    lam = 15.1 / 60
+    nu = 15.2 / 60
     if state == 0:
         delay = expon.rvs(scale=1 / lam)
         next_state = 1
