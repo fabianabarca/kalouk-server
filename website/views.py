@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from decouple import config
 
 # Create your views here.
 
@@ -12,4 +13,8 @@ def ws_test(request):
 
 
 def sse_test(request):
-    return render(request, "sse_test.html")
+    event_source = config("EVENT_SOURCE", default="http://localhost:8000/sse/")
+    context = {
+        "event_source": event_source,
+    }
+    return render(request, "sse_test.html", context)

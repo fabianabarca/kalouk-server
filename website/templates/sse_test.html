@@ -58,7 +58,7 @@
   });
 
   console.log("Intentando conectar a SSE en https://web.kalouk.xyz/sse/...");
-  const eventSource = new EventSource("http://localhost:8000/sse/");
+  const eventSource = new EventSource("{{ event_source|escapejs }}");
 
   eventSource.onopen = function (event) {
     console.log("SSE conexión abierta:", event);
