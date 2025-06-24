@@ -2,11 +2,63 @@
 
 <h2>Prueba SSE</h2>
 <p id="onopen"></p>
-<p class="lead" id="onmessage">Esperando mensaje...</p>
+<p id="onmessage" class="font-monospace">Esperando mensaje...</p>
+
+<div class="ratio ratio-16x9">
+  <canvas id="stateChart" style="width: 100%"></canvas>
+</div>
+
+<!-- Chart.js and time adapter for time axis support -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
 
 <script>
+  const N = 20; // Number of states to keep in the plot
+  const stateData = [];
+
+  // Chart.js setup with time scale on x-axis
+  const ctx = document.getElementById("stateChart").getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "",
+          data: stateData,
+          borderColor: "blue",
+          fill: false,
+          tension: 0.1,
+        },
+      ],
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      parsing: false, // Required for custom {x, y} objects
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "second",
+            tooltipFormat: "HH:mm:ss",
+            displayFormats: {
+              second: "HH:mm:ss",
+            },
+          },
+          title: {
+            display: true,
+            text: "Hora",
+          },
+        },
+        y: { beginAtZero: true },
+      },
+    },
+  });
+
   console.log("Intentando conectar a SSE en https://web.kalouk.xyz/sse/...");
-  const eventSource = new EventSource("https://web.kalouk.xyz/sse/");
+  const eventSource = new EventSource("http://localhost:8000/sse/");
 
   eventSource.onopen = function (event) {
     console.log("SSE conexión abierta:", event);
@@ -18,8 +70,18 @@
     console.log("Mensaje SSE recibido:", event);
     try {
       const parsed = JSON.parse(event.data);
-      console.log("Mensaje SSE (parseado):", parsed);
       document.getElementById("onmessage").innerText = event.data;
+
+      // Update chart with new state and timestamp (timestamp is already in ms)
+      const state = parseInt(parsed.state, 10);
+      const timestamp = parseInt(parsed.timestamp, 10); // Already in ms
+
+      stateData.push({ x: timestamp, y: state });
+
+      if (stateData.length > N) {
+        stateData.shift();
+      }
+      chart.update();
     } catch (e) {
       console.warn("No se pudo parsear el mensaje SSE como JSON:", event.data);
       document.getElementById("onmessage").innerText = event.data;
@@ -34,10 +96,6 @@
     document.getElementById("onopen").innerText = "Error en la conexión SSE.";
     document.getElementById("onmessage").innerText = "";
   };
-
-  eventSource.addEventListener("state", function (event) {
-    console.log("Evento personalizado 'state' recibido:", event);
-  });
 
   window.addEventListener("beforeunload", function () {
     console.log("Cerrando conexión SSE...");

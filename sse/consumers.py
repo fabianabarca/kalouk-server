@@ -3,6 +3,7 @@ import asyncio
 import redis.asyncio as redis_aio
 import json
 import logging
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ class StateSSEConsumer(AsyncHttpConsumer):
         await self.send_headers(
             headers=[
                 (b"Content-Type", b"text/event-stream"),
-                (b"Access-Control-Allow-Origin", b"https://web.kalouk.xyz"),
+                (b"Access-Control-Allow-Origin", b"*"),
             ]
         )
 
@@ -25,12 +26,13 @@ class StateSSEConsumer(AsyncHttpConsumer):
         try:
             while True:
                 message = await pubsub.get_message(
-                    ignore_subscribe_messages=True, timeout=1.0
+                    ignore_subscribe_messages=True, timeout=0.01
                 )
                 if message and message["type"] == "message":
                     data = message["data"].decode()
                     logger.info(f"Received message: {data}")
-                    json_payload = json.dumps({"state": data})
+                    timestamp = int(datetime.now().timestamp() * 1000)
+                    json_payload = json.dumps({"state": data, "timestamp": timestamp})
                     payload = f"data: {json_payload}\n\n"
                     await self.send_body(payload.encode(), more_body=True)
                     logger.info(f"Sent SSE message: {payload.strip()}")

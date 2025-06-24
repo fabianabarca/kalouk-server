@@ -32,46 +32,47 @@
     />
   </head>
   <body>
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-      <div class="text-center">
-        <img
-          src="{% static 'K.png' %}"
-          alt="Logo Kalouk"
-          class="img-fluid"
-          style="max-width: 320px"
-        />
-        <h1 class="display-1 fw-bold">Kalouk <br /></h1>
-        <ul class="list-inline my-5 lead">
-          <li class="list-inline-item">
-            <a href="{% url 'index' %}"
-              ><span class="badge text-bg-secondary">Inicio</span>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="{% url 'docs' %}"
-              ><span class="badge text-bg-secondary">Documentación API</span>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="{% url 'api-root' %}"
-              ><span class="badge text-bg-secondary">API (raíz)</span>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="{% url 'ws_test' %}"
-              ><span class="badge text-bg-secondary">WebSockets</span>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="{% url 'sse_test' %}"
-              ><span class="badge text-bg-secondary">SSE</span>
-            </a>
-          </li>
-        </ul>
-        {% block main %} {% endblock %}
+    <div class="container">
+      <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="text-center">
+          <img
+            src="{% static 'K.png' %}"
+            alt="Logo Kalouk"
+            class="img-fluid"
+            style="max-width: 320px"
+          />
+          <h1 class="display-1 fw-bold">Kalouk <br /></h1>
+          <ul class="list-inline my-5 lead">
+            <li class="list-inline-item">
+              <a href="{% url 'index' %}"
+                ><span class="badge text-bg-secondary">Inicio</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'docs' %}"
+                ><span class="badge text-bg-secondary">Documentación API</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'api-root' %}"
+                ><span class="badge text-bg-secondary">API (raíz)</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'ws_test' %}"
+                ><span class="badge text-bg-secondary">WebSockets</span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{% url 'sse_test' %}"
+                ><span class="badge text-bg-secondary">SSE</span>
+              </a>
+            </li>
+          </ul>
+          {% block main %} {% endblock %}
+        </div>
       </div>
     </div>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
