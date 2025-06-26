@@ -9,4 +9,5 @@ scipy
 django_rest_framework
 drf-spectacular
 python-decouple
+django-cors-headers
 gunicorn

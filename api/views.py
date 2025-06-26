@@ -193,6 +193,20 @@ class ProcessViewSet(viewsets.ViewSet):
             )
 
 
+class InformationViewSet(viewsets.ViewSet):
+    def list(self, request):
+        return Response(
+            {
+                "name": "Kalouk",
+                "developer": "Fabián Abarca",
+                "university": "Universidad de Costa Rica",
+                "course": "Modelos Probabilísticos de Señales y Sistemas",
+                "project": "Estrategias docentes para sesiones virtuales interactivas con el desarrollo de un nuevo sistema web: una experiencia en el curso Modelos Probabilísticos de Señales y Sistemas",
+                "description": "Ecosistema de herramientas y componentes web para la enseñanza de probabilidad y el análisis de datos con Python.",
+            }
+        )
+
+
 def transform(x):
     return np.power(x, 0.5) + 1
 
