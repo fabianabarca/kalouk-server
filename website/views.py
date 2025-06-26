@@ -9,7 +9,11 @@ def index(request):
 
 
 def ws_test(request):
-    return render(request, "ws_test.html")
+    websocket = config("WEBSOCKET", default="http://localhost:8000/sse/")
+    context = {
+        "websocket": websocket,
+    }
+    return render(request, "ws_test.html", context)
 
 
 def sse_test(request):

@@ -22,6 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("website.urls")),
     path("api/", include("api.urls")),
-    path("ws/", include("ws.urls")),
+    path("ws/", include("websocket.urls")),
     path("sse/", include("sse.urls")),
+    path("webhooks/", include("webhooks.urls")),
 ]

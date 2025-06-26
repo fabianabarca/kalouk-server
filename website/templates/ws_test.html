@@ -1,17 +1,20 @@
 {% extends "base.html" %} {% load static %} {% block main %}
 
-<h2>Prueba</h2>
+<h2>WebSocket</h2>
+<h3>Prueba (canal <code>test</code>)</h3>
+<br />
 <p id="onopen"></p>
 <p id="onmessage">Esperando mensaje...</p>
+<div id="message" class="alert alert-light" role="alert"></div>
 
 <script>
-  const screenSocket = new WebSocket("ws://127.0.0.1:8000/ws/test/");
+  const screenSocket = new WebSocket("{{ websocket|escapejs }}");
 
   // Registrar la conexión abierta
   screenSocket.onopen = function (event) {
     console.log("Conexión abierta exitosamente.");
     document.getElementById("onopen").innerText =
-      "Conexión abierta exitosamente.";
+      "Conexión WebSocket abierta exitosamente.";
   };
 
   // Registrar mensajes recibidos
@@ -19,7 +22,8 @@
     const data = JSON.parse(event.data);
     console.log("Mensaje recibido:", data);
     if (data.message) {
-      document.getElementById("onmessage").innerText = data.message;
+      document.getElementById("onmessage").innerText = "Mensaje recibido";
+      document.getElementById("message").innerText = data.message;
     }
   };
 

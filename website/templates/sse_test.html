@@ -1,8 +1,11 @@
 {% extends "base.html" %} {% load static %} {% block main %}
 
-<h2>Prueba SSE</h2>
+<h2>SSE (<span class="fst-italic">Server-Sent Events</span>)</h2>
+<h3>Prueba (canal <code>state_updates</code>)</h3>
+<br />
 <p id="onopen"></p>
-<p id="onmessage" class="font-monospace">Esperando mensaje...</p>
+<p id="onmessage">Esperando mensaje...</p>
+<div id="message" class="alert alert-light font-monospace" role="alert"></div>
 
 <div class="ratio ratio-16x9">
   <canvas id="stateChart" style="width: 100%"></canvas>
@@ -70,7 +73,8 @@
     console.log("Mensaje SSE recibido:", event);
     try {
       const parsed = JSON.parse(event.data);
-      document.getElementById("onmessage").innerText = event.data;
+      document.getElementById("onmessage").innerText = "Mensaje recibido";
+      document.getElementById("message").innerText = event.data;
 
       // Update chart with new state and timestamp (timestamp is already in ms)
       const state = parseInt(parsed.state, 10);
