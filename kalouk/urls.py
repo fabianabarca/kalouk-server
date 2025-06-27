@@ -25,4 +25,5 @@ urlpatterns = [
     path("ws/", include("websocket.urls")),
     path("sse/", include("sse.urls")),
     path("webhooks/", include("webhooks.urls")),
+    path("cli/", include("cli.urls")),
 ]

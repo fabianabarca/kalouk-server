@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "websocket",
     "webhooks",
     "sse",
+    "cli",
     "website",
     "daphne",
     "channels",
