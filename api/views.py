@@ -5,12 +5,25 @@ from rest_framework import status
 from django.http import FileResponse
 from django.conf import settings
 
+from .models import Dataset
+from .serializers import DatasetSerializer
+
 import random
 import numpy as np
 from scipy import stats
 from datetime import datetime, time
 
 # Create your views here.
+
+
+class DatasetViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet para manejar los datasets.
+    Permite listar, crear, actualizar y eliminar datasets.
+    """
+
+    queryset = Dataset.objects.all()
+    serializer_class = DatasetSerializer
 
 
 class DataViewSet(viewsets.ViewSet):

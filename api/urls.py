@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 router.register(r"datos", views.DataViewSet, basename="datos")
 router.register(r"proceso", views.ProcessViewSet, basename="proceso")
 router.register(r"informacion", views.InformationViewSet, basename="informacion")
+router.register(r"datasets", views.DatasetViewSet, basename="datasets")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
